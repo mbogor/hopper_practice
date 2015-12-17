@@ -1,2 +1,2 @@
 # hopper_practice
-part 1 git practice
+GHA TestFirst JS exercises 
