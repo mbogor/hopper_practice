@@ -93,12 +93,14 @@ var join = function(array, string){
 
 var paramify = function(obj){
 	var answer = "";
+	var counter = 0;
 	for (prop in obj){
 		answer = answer+ prop + "=" + obj[prop];
 		
-		if (Object.keys(obj).length!=(prop+1)){
+		if (Object.keys(obj).length!=(counter+1)){
 			answer = answer + "&";
 		}
+		counter++;
 	}
 	return answer;
 
