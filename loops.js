@@ -94,8 +94,26 @@ var join = function(array, string){
 var paramify = function(obj){
 	var answer = "";
 	var counter = 0;
-	for (prop in obj){
-		answer = answer+ prop + "=" + obj[prop];
+	var ks = [];
+	//alphabitize
+
+	for (k in obj){
+  		if (obj.hasOwnProperty(k)) {
+    	ks.push(k);
+    	}
+    }
+
+    ks.sort()
+    console.log(ks);
+
+	for (var i=0; i<ks.length; i++){
+		
+		answer+= ks[i] + "=" + obj[ks[i]];
+		console.log(obj);
+		console.log(i);
+		console.log(ks[i]);
+		console.log(answer);
+
 		
 		if (Object.keys(obj).length!=(counter+1)){
 			answer = answer + "&";
