@@ -1,60 +1,48 @@
 var findACount = function(string){
-	var counter = 0;
-	for (var i = 0; i < string.length; i++) {
-		if (string.charAt(i)=="a" || string.charAt(i)=="A"){
-			counter++
-		}
-	}
-	return counter;
+	var array = string.match(/a/ig);
+	return array ? array.length : 0; 
+	/*ternary operator (if array.length>0 
+	then return array.length if not than return 0)*/
+
 }
 
 var areaCodeFinder = function(string){
-	var code = "";
-	var counter = 0;
-	for (var i = 0; i < string.length; i++) {
-		if (counter===3){
-			return Number(code);
-		} else if (isNaN(Number(string[i]))!==true) {
-			code+=string[i];
-			counter++;
-		}
-	}
-
+	var newsr = string.replace(/[()-]/, "");
+	var code = newsr.match(/^\d{3}/);
+	return Number(code.toString());
 }
 
 var adjustUrlParameter = function(url, param){
-	var last = url.charAt(url.length-1);
-	if (param.charAt(0)==="I"){
-		
-		if (isNaN(last)===true){
-			return url+ "?"+param;
-		
-		} else if (isNaN(Number(last))===false){
-			return url.slice(0,url.indexOf("ID"))+param;
+	if (url.indexOf("?")>-1){
+		var end = param.split("=")[0];
+		var objre = new RegExp(end);
+		if (url.match(objre)){
+			return url.split(end)[0] + param;
+		}else{
+			return url + "&" + param;
 		}
-	} else {
-		return url+ "&"+param;
+	}else{
+		return url + "?"+ param;
 	}
 }
 
-var CharFinder= function(str){
-	for (var i = 0; i <str.length; i++) {
-		if (isNaN(Number(str.charAt(i)))===false){
-			return i;
-		}
-	};
-}
-var stringPlusPlus = function(string){
-	var last = string.charAt(string.length-1);
-	console.log(last);
-	var character = CharFinder(string);
-	var num = 0;
+
+function stringPlusPlus(str){
+	if (!str.match(/\d/)) {
+		return str + "1";
 	
-	if (isNaN(last)===true){
-		return string+"1";
-	} else{
-		num = Number(string.slice(character,string.length))+1;
-		return string.slice(0,character) + num.toString();
+	} else if (isNaN(Number(str))==false) { 
+		var debug = Number(str);
+		return (Number(str)+1).toString();
+	
+	} else {
+		var string = str.match(/^[a-z]+/i)[0];	
+		var newnum = str.replace(new RegExp(string), "");
+		var number = Number(newnum)+1;
+		var lengthNumber = number.toString().length;
+		var lengthONum = newnum.length;
+		var zeros = lengthONum - lengthNumber;
+		return string + (Array(zeros+1)).join("0") + number;
+
 	}
 }
-
